@@ -1,3 +1,8 @@
+# to fix:
+# what happens if length of list changes?
+# how long should bars stay highlighted?
+# possibly use different colours instead of bool for highlighting
+
 import time
 
 class animatedList:
@@ -16,8 +21,6 @@ class animatedList:
             self.__highlightRange(startIndex, endIndex)
         else:
             self.__highlightSingle(startIndex)
-    # how long should bars stay highlighted?
-    # possibly use different colours instead of bool
             
     def __highlightRange(self, startIndex, endIndex):
         for i in xrange(startIndex, endIndex + 1):
@@ -30,3 +33,12 @@ class animatedList:
     
     def unhighlight(self, index):
         self.highlighted[index] = False
+    
+    def __setitem__(self, key, value):
+        self.theList[key] = value
+    
+    def __getitem__(self, key):
+        return self.theList[key]
+    
+    def __len__(self):
+        return len(self.theList)

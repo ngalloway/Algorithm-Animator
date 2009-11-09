@@ -3,18 +3,18 @@ from animator import animatedList
 
 def selectionSort(l):
     al = animatedList(l)
-    for i in range(len(l)):
+    for i in range(len(al)):
         al.highlight(0, i)
         minimum = i
-        for j in range(i, len(l)):
+        for j in range(i, len(al)):
             al.highlight(minimum)
             al.highlight(j)
-            if l[j] < l[minimum]:
+            if al[j] < al[minimum]:
                 al.unhighlight(minimum)
                 minimum = j
             else:
                 al.unhighlight(j)
-        l[i], l[minimum]  = l[minimum], l[i]
+        al[i], al[minimum]  = l[minimum], l[i]
         al.unhighlight(minimum)
         
 

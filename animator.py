@@ -6,9 +6,9 @@ class animatedList:
         self.highlighted = [False] * len(l)
 
     def show(self):
+        print '\n' * 50
         for i, highlighted in zip(self.theList, self.highlighted):
-            print ('O' if highlighted else 'X') * i
-        print
+            print ('-' if highlighted else 'I') * i
         time.sleep(0.4)
 
     def highlight(self, startIndex, endIndex = None):
@@ -16,6 +16,8 @@ class animatedList:
             self.__highlightRange(startIndex, endIndex)
         else:
             self.__highlightSingle(startIndex)
+    # how long should bars stay highlighted?
+    # possibly use different colours instead of bool
             
     def __highlightRange(self, startIndex, endIndex):
         for i in xrange(startIndex, endIndex + 1):
@@ -26,6 +28,5 @@ class animatedList:
         self.highlighted[index] = True
         self.show()
     
-    def unhighlight(self):
-        for i in xrange(len(self.highlighted)):
-            self.highlighted[i] = False
+    def unhighlight(self, index):
+        self.highlighted[index] = False

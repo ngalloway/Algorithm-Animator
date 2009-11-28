@@ -1,5 +1,5 @@
 import random
-from animator import animatedList
+from animatorGui import animatedList
 
 def main():
     l = [random.randint(1, 20) for i in xrange(20)]

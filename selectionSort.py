@@ -1,5 +1,5 @@
 import random
-from animator import animatedList
+from animatorGui import animatedList
 
 def selectionSort(l):
     al = animatedList(l)
@@ -16,10 +16,11 @@ def selectionSort(l):
                 al.unhighlight(j)
         al[i], al[minimum]  = l[minimum], l[i]
         al.unhighlight(minimum)
+    al.show()
         
 
 def main():
-    l = [random.randint(1, 50) for i in range(20)]
+    l = [random.randint(5, 50) for i in range(20)]
     print l
     selectionSort(l)
     print l

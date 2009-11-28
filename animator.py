@@ -25,7 +25,7 @@ class animatedList:
     def __highlightRange(self, startIndex, endIndex):
         for i in xrange(startIndex, endIndex + 1):
             self.highlighted[i] = True
-            self.show()
+        self.show()
             
     def __highlightSingle(self, index):
         self.highlighted[index] = True

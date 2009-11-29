@@ -1,32 +1,30 @@
 import Tkinter
 import copy
 from time import sleep
-import threading
-import Queue
 
 class animatedList:
     def __init__(self, l):
         self.theList = l
         self.highlighted = [False] * len(l)
         self.states = []
+        self.root = Tkinter.Tk()
+        self.canvas = Tkinter.Canvas(self.root, background="white")
+        self.canvas.pack(expand=1, fill = "both")
 
     def show(self):
-        elementNo = len(self.theList)
-        root = Tkinter.Tk()
-        root.minsize(20 + len(self.theList) * 25, 300)
-        canvas = Tkinter.Canvas(root, background="white")
-        canvas.pack(expand=1, fill="both")
+        windowWidth = 20 + len(self.theList) * 25
+        windowHeight = max(self.theList) + 20
+        self.root.minsize(windowWidth, windowHeight)
         for state in self.states:
-            canvas.delete(Tkinter.ALL)
+            self.canvas.delete(Tkinter.ALL)
             for i in xrange(len(state.theList)):
                 x = 10 + i * 25
                 c = "blue" if state.highlighting[i] else "white"
-                canvas.create_rectangle(x, 200, x + 20, 200 - state.theList[i], fill=c)
-            root.update()
+                self.canvas.create_rectangle(x, windowHeight - 10, x + 20, windowHeight - 10 - state.theList[i], fill=c)
+            self.root.update()
             sleep(0.4)
-        root.mainloop()
 
-    def highlight(self, startIndex, endIndex = None):
+    def highlight(self, startIndex, endIndex=None):
         if endIndex != None:
             self.__highlightRange(startIndex, endIndex)
         else:
@@ -61,3 +59,4 @@ class State:
     def __init__(self, l, highlighting):
         self.theList = copy.deepcopy(l)
         self.highlighting = copy.deepcopy(highlighting)
+

@@ -1,3 +1,6 @@
+# allow different colours for highlighting
+# play/pause/step buttons
+
 import Tkinter
 import copy
 from time import sleep
@@ -5,7 +8,7 @@ from time import sleep
 class animatedList:
     def __init__(self, l):
         self.theList = l
-        self.highlighted = [False] * len(l)
+        self.highlighted = ["white"] * len(l)
         self.states = []
         self.root = Tkinter.Tk()
         self.canvas = Tkinter.Canvas(self.root, background="white")
@@ -19,32 +22,33 @@ class animatedList:
             self.canvas.delete(Tkinter.ALL)
             for i in xrange(len(state.theList)):
                 x = 10 + i * 25
-                c = "blue" if state.highlighting[i] else "white"
+                c = state.highlighting[i]
                 self.canvas.create_rectangle(x, windowHeight - 10, x + 20, windowHeight - 10 - state.theList[i], fill=c)
             self.root.update()
-            sleep(0.4)
+            sleep(0.1)
+        self.root.mainloop()
 
-    def highlight(self, startIndex, endIndex=None):
+    def highlight(self, startIndex, endIndex=None, colour="blue"):
         if endIndex != None:
-            self.__highlightRange(startIndex, endIndex)
+            self.__highlightRange(startIndex, endIndex, colour)
         else:
-            self.__highlightSingle(startIndex)
-        self.update()
+            self.__highlightSingle(startIndex, colour)
+        self.__update()
             
-    def __highlightRange(self, startIndex, endIndex):
+    def __highlightRange(self, startIndex, endIndex, colour):
         for i in xrange(startIndex, endIndex + 1):
-            self.highlighted[i] = True
+            self.highlighted[i] = colour
             
-    def __highlightSingle(self, index):
-        self.highlighted[index] = True
+    def __highlightSingle(self, index, colour):
+        self.highlighted[index] = colour
     
     def unhighlight(self, index):
-        self.highlighted[index] = False
-        self.update()
+        self.highlighted[index] = "white"
+        self.__update()
         
     def __setitem__(self, key, value):
         self.theList[key] = value
-        self.update()
+        self.__update()
     
     def __getitem__(self, key):
         return self.theList[key]
@@ -52,8 +56,9 @@ class animatedList:
     def __len__(self):
         return len(self.theList)
     
-    def update(self):
+    def __update(self):
         self.states.append(State(self.theList, self.highlighted))
+    
 
 class State:
     def __init__(self, l, highlighting):

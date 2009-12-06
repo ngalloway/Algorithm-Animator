@@ -6,13 +6,21 @@ import copy
 from time import sleep
 
 class animatedList:
+    
     def __init__(self, l):
         self.theList = l
         self.highlighted = ["white"] * len(l)
         self.states = []
+        self.isPlaying = True
+        
         self.root = Tkinter.Tk()
         self.canvas = Tkinter.Canvas(self.root, background="white")
         self.canvas.pack(expand=1, fill = "both")
+        f = Frame(root)
+        f.pack_popagate(0)
+        b = Button(f, text="Play/Pause")
+        b.pack(fill="both", expand=1)
+        
 
     def show(self):
         windowWidth = 20 + len(self.theList) * 25
@@ -27,6 +35,21 @@ class animatedList:
             self.root.update()
             sleep(0.1)
         self.root.mainloop()
+    
+    def __showState(self, state):
+        self.canvas.delete(Tkinter.ALL)
+        for i in xrange(len(state.theList)):
+            x = 10 + i * 25
+            c = state.highlighting[i]
+            self.canvas.create_rectangle(x, windowHeight - 10, x + 20, windowHeight - 10 - state.theList[i], fill=c)
+        self.root.update()
+    
+    def __play(self, stateIndex=0):
+        while self.isPlaying and stateIndex < len(self.states):
+            self.__showState(self.states[stateIndex]
+            sleep(0.1)
+            stateIndex += 1
+        
 
     def highlight(self, startIndex, endIndex=None, colour="blue"):
         if endIndex != None:

@@ -1,8 +1,8 @@
 import random
-from animatorGui import animatedList
+import animator
 
 def selectionSort(l):
-    al = animatedList(l)
+    al = animator.AnimatedList(l)
     for i in range(len(al)):
         al.highlight(0, i, colour="green")
         minimum = i
@@ -18,13 +18,19 @@ def selectionSort(l):
         al.unhighlight(minimum)
         al[i], al[minimum]  = l[minimum], l[i]
         al.unhighlight(minimum)
-    al.show()
+    return al
+    #al.show()
         
 
 def main():
-    l = [random.randint(5, 150) for i in range(20)]
-    print l
-    selectionSort(l)
-    print l
+    l1 = [random.randint(5, 50) for i in range(20)]
+    r1 = animator.BarChart(selectionSort(l1))
+    l2 = [random.randint(5, 50) for i in range(20)]
+    r2 = animator.BarChart(selectionSort(l2))
+    gui = animator.Gui()
+    gui.add(r1)
+    gui.add(r2)
+    gui.run()
+    
 
 main()

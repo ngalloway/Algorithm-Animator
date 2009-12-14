@@ -82,6 +82,7 @@ class BarChart(Representation):
     def __showState(self, state):
         self.windowWidth = 20 + len(self.states[0].theList) * 25
         self.windowHeight = max(self.states[0].theList) + 20
+        self.theGui.root.minsize(self.windowWidth, self.windowHeight) #move me somewhere else
         self.canvas.delete(Tkinter.ALL)
         for i in xrange(len(state.theList)):
             x = 10 + i * 25

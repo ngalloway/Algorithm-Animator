@@ -7,7 +7,6 @@ def selectionSort(l):
         al.highlight(0, i, colour="green")
         minimum = i
         for j in range(i, len(al)):
-            #al.highlight(minimum, colour="red")
             al.highlight(j)
             if al[j] < al[minimum]:
                 al.unhighlight(minimum)
@@ -16,11 +15,8 @@ def selectionSort(l):
             else:
                 al.unhighlight(j)
         al.unhighlight(minimum)
-        al[i], al[minimum]  = l[minimum], l[i]
-        al.unhighlight(minimum)
-    return al
-    #al.show()
-        
+        al.swap(i, minimum)
+    return al        
 
 def main():
     l1 = [random.randint(5, 50) for i in range(20)]

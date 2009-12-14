@@ -1,8 +1,8 @@
 import random
-from animatorGui import animatedList
+import animator
 
 def bubbleSort(l):
-    al = animatedList(l)
+    al = animator.AnimatedList(l)
     swapped = True
     while swapped:
         swapped = False
@@ -10,12 +10,15 @@ def bubbleSort(l):
             al.highlight(i)
             al.highlight(i + 1)
             if al[i] > al[i + 1]:
-                al[i], al[i + 1] = al[i + 1], al[i]
+                al.swap(i, i+1)
                 swapped = True
             al.unhighlight(i)
         if not swapped:
             break
-    al.show()
+    return al
 
-bubbleSort([random.randint(1, 50) for i in range(20)])
-
+al = bubbleSort([random.randint(1, 50) for i in range(20)])
+r = animator.BarChart(al)
+gui = animator.Gui()
+gui.add(r)
+gui.run()

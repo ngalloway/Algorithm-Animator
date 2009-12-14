@@ -25,7 +25,6 @@ def linearSearch(l, n):
             break
         else:
             al.highlight(i, colour="red")
-        #al.unhighlight()
     return al
 
 r1 = animator.BarChart(binarySearch(range(5, 250, 5), 13))

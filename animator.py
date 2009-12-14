@@ -31,7 +31,6 @@ class Gui:
             sleep(0.3)
 
 class Representation:
-    #theGui = None
     def __init__(self, al):
         self.isPlaying = True
         self.states = al.states
@@ -131,6 +130,16 @@ class AnimatedList:
         else:
             self.highlighted[index] = "white"
         self.__update()
+    
+    def swap(self, x, y):
+        xColour, yColour = self.highlighted[x], self.highlighted[y]
+        self.__highlightSingle(x, "red")
+        self.__highlightSingle(y, "red")
+        self.__update()
+        self.theList[x], self.theList[y] = self.theList[y], self.theList[x]
+        self.__update()
+        self.__highlightSingle(x, xColour)
+        self.__highlightSingle(y, yColour)
         
     def __setitem__(self, key, value):
         self.theList[key] = value
